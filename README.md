@@ -1,5 +1,5 @@
 # sysc5709-project
-#### RNA Sequence Comparison by Needleman-Wunsch Algorithm ####
+### RNA Sequence Comparison by Needleman-Wunsch Algorithm ###
 
 **Organization: Carleton University**
 
@@ -13,4 +13,12 @@ Ribonucleic acid (RNA) is a polymeric molecule essential in various biological r
 
 **Source File Organization**
 
++ /doc includes documentations instruction.pdf
++ /src includes source code files, main.c, main.c, getMax.c, matrixBuilder.c, getAlign.c, getMax.h, matrixBuilder.h, getAlign.h (for running easier)
++  includes header files: getMax.h, matrixBuilder.h, getAlign.h
++  makefile
++  README.md
+
 **Instructions**
+
+Detailed instructions about how to run this program can be found in instruction.pdf under /doc folder. 
