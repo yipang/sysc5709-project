@@ -15,6 +15,7 @@ Ribonucleic acid (RNA) is a polymeric molecule essential in various biological r
 
 + /doc includes documentations instruction.pdf
 + /src includes source code files, main.c, main.c, getMax.c, matrixBuilder.c, getAlign.c, getMax.h, matrixBuilder.h, getAlign.h (for running easier), makefile
++ /include includes .h files: getMax.h, matrixBuilder.h, getAlign.h
 +  README.md
 
 **Instructions**
