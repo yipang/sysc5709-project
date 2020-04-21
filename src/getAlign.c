@@ -22,6 +22,7 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
     int len1 = strlen(seq1);
     int len2 = strlen(seq2);
 
+    /* Build matrix for starting line and column */
     scores[0][0] = 0;
     for(int i=1; i<=len1; i++){
         scores[0][i] = -i*gap_penalty;
@@ -31,6 +32,7 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
         scores[i][0] = -i*gap_penalty;
     }
     
+    /* Build score matrix according to NWA algorithm */
     for (int i = 1; i <= len2; i++){
         for (int j = 1; j <= len1; j++)
         {   
@@ -50,6 +52,7 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
         }
     }
 
+    /* Traceback to get best comparing result*/
     int num;
     int seq1_num = len1 - 1;
     int seq2_num = len2 - 1;
@@ -78,41 +81,38 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
 
     /* Find the largest value in the last row and last column as the start point for traceback */
     int starter1, starter2;
-    if (col_max >= row_max)
-    {
+    if (col_max >= row_max) {
         starter1 = len2;
         starter2 = max_j;
     }
-    if (col_max < row_max)
-    {
+
+    if (col_max < row_max) {
         starter1 = max_i;
         starter2 = len1;
     }
 
-    if (starter1 < len2)
-    {
-        for (i = starter1 + 1; i <= len2; i++)
+    if (starter1 < len2) {
+        for (i = starter1 + 1; i <= len2; i++) {
             sum += scores[i][len1];
-        for (num = 0; num < len2 - starter1; num++)
-        {
+        }
+
+        for (num = 0; num < len2 - starter1; num++) {
             seq1_align[num] = '-';
             seq2_align[num] = seq2[seq2_num];
             seq2_num--;
         }
     }
-    if (starter2 < len1)
-    {
-        for (j = starter2 + 1; j<= len1; j++)
+    if (starter2 < len1) {
+        for (j = starter2 + 1; j<= len1; j++) {
             sum += scores[len2][j];
-        for (num = 0; num < len1 - starter2; num++)
-        {
+        }
+        for (num = 0; num < len1 - starter2; num++) {
             seq2_align[num] = '-';
             seq1_align[num] = seq1[seq1_num];
             seq1_num--;
         }
     }
-    if (starter1 == len2 && starter2 == len1)
-    {
+    if (starter1 == len2 && starter2 == len1) {
         num = 0;
         seq2_align[num] = seq2[seq2_num];
         seq1_align[num] = seq1[seq1_num];
@@ -121,8 +121,7 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
         seq2_num--;
     }
     sum += scores[starter1][starter2];
-    while (starter1 > 1 && starter2 > 1 && seq1_num > 0 && seq2_num > 0)
-    {
+    while (starter1 > 1 && starter2 > 1 && seq1_num > 0 && seq2_num > 0) {
         /**
          *score1: value of the left cell
          *score2: value of the upper cell
@@ -134,37 +133,33 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
         score3 = scores[starter1 - 1][starter2 - 1];
         scoremax = getMax(score1, score2, score3);
         sum += scoremax;
-        if (score3 == scoremax)
-        {
+        if (score3 == scoremax) {
             starter1 = starter1 - 1;
             starter2 = starter2 - 1;
             seq1_align[num] = seq1[seq1_num];
             seq2_align[num] = seq2[seq2_num];
             num++; seq1_num--; seq2_num--;
         }
-        if (score1 == scoremax && score2 != scoremax)
-        {
+        if (score1 == scoremax && score2 != scoremax) {
             starter2 = starter2 - 1;
             seq1_align[num] = seq1[seq1_num];
             seq2_align[num] = '-';
             num++; seq1_num--;
         }
-        if (score2 == scoremax && score1 != scoremax)
-        {
+        if (score2 == scoremax && score1 != scoremax) {
             starter1 = starter1 - 1;
             seq2_align[num] = seq2[seq2_num];
             seq1_align[num] = '-';
             num++; seq2_num--;
         }
-        if (score2 == scoremax && score1 == scoremax)
-        {
+        if (score2 == scoremax && score1 == scoremax) {
             starter1 = starter1 - 1;
             seq2_align[num] = seq2[seq2_num];
             seq1_align[num] = '-';
             num++; seq2_num--;
         }
     }
-    if (starter1 == 1 && starter2 != 1)
+    if (starter1 == 1 && starter2 != 1) {
         while (seq1_num >= 0)
         {
             seq1_align[num] = seq1[seq1_num];
@@ -172,7 +167,8 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
             seq1_num--; 
             num++;
         }
-    if (starter2 == 1 && starter1 != 1)
+    }
+    if (starter2 == 1 && starter1 != 1) {
         while (seq2_num >= 0)
         {
             seq2_align[num] = seq2[seq2_num];
@@ -180,8 +176,8 @@ void getAlign(char seq1[], char seq2[], int match_score, int mismatch_score, int
             seq2_num--; 
             num++;
         }
-    if (starter2 == 1 && starter1 == 1)
-    {
+    }
+    if (starter2 == 1 && starter1 == 1) {
         seq2_align[num] = seq2[0];
         seq1_align[num] = seq1[0];
     }
