@@ -4,9 +4,13 @@
 #include <string.h>
 #include <stdbool.h>
 #include <stdlib.h>
+<<<<<<< HEAD
 #include "get_align.h"
 #include "matrix_builder.h"
 #include "get_max.h"
+=======
+#include "matrix_builder.h"
+>>>>>>> e610d0f5040ce77809979196a75072230183137d
 #include "check_input.h"
 
 int main(){

@@ -20,6 +20,7 @@ int main(){
 	int index1 = 0;
 	int index2 =0;
 
+<<<<<<< HEAD
 	/* Test cases for get_align function */
 	fprintf(fp,"Test case for get_align function.\n\n");
 	/**
@@ -271,6 +272,10 @@ int main(){
     }
 	fprintf(fp,"result: %d, expected: 0\n", result);
 	fprintf(fp,"\n");
+=======
+
+
+>>>>>>> e610d0f5040ce77809979196a75072230183137d
 
 	/* The following test cases check if the rows and columns of the matrix are expected. */
 	fprintf(fp,"The following test cases check if the rows and columns of the matrix are expected.\n");
